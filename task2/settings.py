@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-import dj_database_url
+import os, dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ln1!v7bl3!y!eg2s=9@q93(*!qrv3o$o!b1%553&r94kp6tcxc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['legacytech.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -79,14 +79,14 @@ WSGI_APPLICATION = 'task2.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse('postgresql://postgres.mzwmsyljdvlodaxqqqoz:legacywebhub10@aws-0-eu-central-1.pooler.supabase.com:6543/postgres'),
+    'default': dj_database_url.parse('postgresql://hng:5bpIlzkVIqTuPyBeJ5cjAiIzlVstF0NP@dpg-cq5s546ehbks73buguog-a.oregon-postgres.render.com/hng_db_83k2'),
     'postgres': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres.mzwmsyljdvlodaxqqqoz',
-        'PASSWORD': 'legacywebhub10',
-        'HOST': 'aws-0-eu-central-1.pooler.supabase.com',
-        'PORT': 6543
+        'NAME': 'hng_db_83k2',
+        'USER': 'hng',
+        'PASSWORD': '5bpIlzkVIqTuPyBeJ5cjAiIzlVstF0NP',
+        'HOST': 'dpg-cq5s546ehbks73buguog-a',
+        'PORT': 5432
     },
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -130,6 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -152,15 +153,5 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'VERIFYING_KEY': None,
     'AUTH_HEADER_TYPES': ('Bearer',),
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    'TOKEN_TYPE_CLAIM': 'token_type',
-    'JTI_CLAIM': 'jti',
 }
